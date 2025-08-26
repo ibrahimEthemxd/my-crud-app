@@ -1,4 +1,3 @@
-// src/services/http.ts
 type Query = Record<string, string | number | boolean | undefined | null>;
 
 function withQuery(url: string, query?: Query) {

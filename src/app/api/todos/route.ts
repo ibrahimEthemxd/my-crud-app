@@ -2,7 +2,7 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
-// ✅ GET → Tüm todoları getir
+//? GET → Tüm todoları getir
 export async function GET() {
   try {
     const todos = await prisma.todo.findMany();
@@ -13,7 +13,7 @@ export async function GET() {
   }
 }
 
-// ✅ POST → Yeni todo ekle
+//? POST → Yeni todo ekle
 export async function POST(req: Request) {
   try {
     const body = await req.json();
@@ -37,7 +37,7 @@ export async function POST(req: Request) {
   }
 }
 
-// ✅ PUT → Mevcut todo güncelle
+//? PUT → Mevcut todo güncelle
 export async function PUT(req: Request) {
   try {
     const body = await req.json();
@@ -62,7 +62,7 @@ export async function PUT(req: Request) {
   }
 }
 
-// ✅ DELETE → Todo sil
+//? DELETE → Todo sil
 export async function DELETE(req: Request) {
   try {
     const { searchParams } = new URL(req.url);

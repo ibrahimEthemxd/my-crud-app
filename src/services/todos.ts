@@ -1,4 +1,3 @@
-// src/services/todos.ts
 import { getApi, postApi, putApi, deleteApi } from "./http";
 
 export type Status = "PENDING" | "IN_PROGRESS" | "DONE";

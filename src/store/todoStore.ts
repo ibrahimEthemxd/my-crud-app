@@ -1,4 +1,3 @@
-// src/store/todoStore.ts
 "use client";
 
 import { create } from "zustand";
@@ -10,10 +9,8 @@ type TodoState = {
   loading: boolean;
   error: string | null;
 
-  // plain setter
   setTodos: (todos: Todo[]) => void;
 
-  // async actions
   fetchTodos: () => Promise<void>;
   addTodo: (input: { title: string; description?: string; status?: Status }) => Promise<void>;
   editTodo: (id: string, input: Partial<Omit<Todo, "id">>) => Promise<void>;
@@ -61,7 +58,6 @@ const useTodoStore = create<TodoState>((set, get) => ({
 
   removeTodo: async (id) => {
     set({ error: null });
-    // İstersen burada “optimistic” yapabilirsin.
     try {
       await deleteTodo(id);
       set({ todos: get().todos.filter((t) => t.id !== id) });
