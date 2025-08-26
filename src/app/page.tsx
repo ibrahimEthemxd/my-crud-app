@@ -6,7 +6,7 @@ import TodoForm from "@/components/TodoForm";
 import TodoList from "@/components/TodoList";
 
 export default function HomePage() {
-  const { todos, setTodos } = useTodoStore();
+  const { setTodos } = useTodoStore();
 
   const fetchTodos = async () => {
     const res = await fetch("/api/todos");
@@ -14,25 +14,19 @@ export default function HomePage() {
     setTodos(data);
   };
 
-  const addTodo = async (title: string) => {
-    const res = await fetch("/api/todos", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ title, status: "pending" }),
-    });
-    const newTodo = await res.json();
-    setTodos([...todos, newTodo]);
-  };
-
   useEffect(() => {
     fetchTodos();
   }, []);
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Todo App</h1>
-      <TodoForm onAdd={addTodo} />
-      <TodoList />
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-teal-600 via-blue-200 to-indigo-700">
+      <div className="bg-white/90 backdrop-blur-lg shadow-2xl rounded-2xl m-4 p-8 w-full max-w-xl">
+        <h1 className="text-center text-2xl font-bold text-blue-600 mb-6">
+          İEÖ - Yapılacaklar Listesi
+        </h1>
+        <TodoForm />
+        <TodoList />
+      </div>
     </div>
   );
 }
