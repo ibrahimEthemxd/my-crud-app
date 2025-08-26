@@ -29,8 +29,9 @@ const useTodoStore = create<TodoState>((set, get) => ({
     try {
       const data = await listTodos();
       set({ todos: data, loading: false });
-    } catch (e: any) {
-      set({ error: e?.message ?? "Failed to fetch todos", loading: false });
+    } catch (e: unknown) {
+      const errorMessage = e instanceof Error ? e.message : "Failed to fetch todos";
+      set({ error: errorMessage, loading: false });
     }
   },
 
@@ -39,8 +40,9 @@ const useTodoStore = create<TodoState>((set, get) => ({
     try {
       const created = await createTodo(input);
       set({ todos: [created, ...get().todos] });
-    } catch (e: any) {
-      set({ error: e?.message ?? "Failed to create todo" });
+    } catch (e: unknown) {
+      const errorMessage = e instanceof Error ? e.message : "Failed to create todo";
+      set({ error: errorMessage });
     }
   },
 
@@ -51,8 +53,9 @@ const useTodoStore = create<TodoState>((set, get) => ({
       set({
         todos: get().todos.map((t) => (t.id === id ? updated : t)),
       });
-    } catch (e: any) {
-      set({ error: e?.message ?? "Failed to update todo" });
+    } catch (e: unknown) {
+      const errorMessage = e instanceof Error ? e.message : "Failed to update todo";
+      set({ error: errorMessage });
     }
   },
 
@@ -61,8 +64,9 @@ const useTodoStore = create<TodoState>((set, get) => ({
     try {
       await deleteTodo(id);
       set({ todos: get().todos.filter((t) => t.id !== id) });
-    } catch (e: any) {
-      set({ error: e?.message ?? "Failed to delete todo" });
+    } catch (e: unknown) {
+      const errorMessage = e instanceof Error ? e.message : "Failed to delete todo";
+      set({ error: errorMessage });
     }
   },
 }));
