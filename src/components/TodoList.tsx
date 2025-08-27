@@ -14,13 +14,20 @@ export default function TodoList() {
     setEditText("");
   };
 
+  const safeTodos = Array.isArray(todos) ? todos : [];
+
   return (
     <ul className="mt-6 flex flex-col gap-3">
-      {todos.map((todo) => (
+      {safeTodos.length === 0 && (
+        <li className="text-stone-600 text-center">Henüz todo yok.</li>
+      )}
+
+      {safeTodos.map((todo) => (
         <li
           key={todo.id}
-          className={`flex justify-between items-center p-3 bg-white rounded-xl ${todo.status === "DONE" ? "opacity-50 line-through" : ""
-            }`}
+          className={`flex justify-between items-center p-3 bg-white rounded-xl ${
+            todo.status === "DONE" ? "opacity-50 line-through" : ""
+          }`}
         >
           {editId === todo.id ? (
             <input
@@ -32,7 +39,6 @@ export default function TodoList() {
             <span className="text-stone-800 flex-1 break-words whitespace-pre-wrap">
               {todo.title}
             </span>
-
           )}
 
           <div className="flex gap-2">
@@ -55,6 +61,7 @@ export default function TodoList() {
                 ✔
               </button>
             )}
+
             {editId === todo.id ? null : (
               <button
                 onClick={() => {
@@ -66,6 +73,7 @@ export default function TodoList() {
                 ✏️
               </button>
             )}
+
             <button
               onClick={() => removeTodo(todo.id)}
               className="bg-red-500 text-white p-2 rounded-lg cursor-pointer"
